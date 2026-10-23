@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f4efe5" />
+  <meta name="description" content="Product details, checks and buying information from SWEETFIX Wānaka." />
+  <title>Item details | SWEETFIX Wānaka</title>
+  <link rel="icon" href="/assets/sweetfix-favicon.png" type="image/png" sizes="512x512" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/shop.css" />
+  <link rel="stylesheet" href="/product.css" />
+  <script src="/script.js" defer></script>
+  <script src="/assets/shop/shop-catalog-data.js" defer></script>
+  <script src="/product.js" defer></script>
+</head>
+<body class="shop-page product-page">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header" data-header><div class="shell header-inner">
+    <a class="brand" href="/" aria-label="SWEETFIX home"><img class="brand-mark" src="/assets/sweetfix-logo-green.png" alt="" width="74" height="62" /><span>SWEETFIX</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation"><span class="sr-only">Open navigation</span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></button>
+    <nav id="site-navigation" class="site-nav" aria-label="Primary navigation"><a href="/">Home</a><a href="/#services">Services</a><a class="is-active" href="/shop">Shop &amp; reuse</a><a href="/#areas">Areas</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav>
+    <div class="header-actions"><a class="button button-small" href="/shop">All items</a></div>
+  </div></header>
+
+  <main id="main" class="product-main">
+    <div class="product-loading shell" data-product-loading><strong>Loading item details…</strong></div>
+    <article class="product-detail" data-product-detail hidden>
+      <div class="shell product-breadcrumb"><a href="/shop">Shop &amp; reuse</a><span aria-hidden="true">/</span><span data-product-breadcrumb></span></div>
+      <section class="shell product-hero-detail">
+        <div class="product-image-stage"><img data-product-image alt="" /></div>
+        <div class="product-copy">
+          <p class="eyebrow" data-product-category></p>
+          <h1 data-product-title></h1>
+          <p class="product-model-detail" data-product-model></p>
+          <p class="product-description" data-product-description></p>
+          <div class="product-condition"><strong data-product-condition></strong><span data-product-location></span></div>
+          <div class="product-price-detail"><small>Asking price</small><strong data-product-price></strong></div>
+          <div class="product-primary-actions"><a class="button button-secondary" data-product-enquire>Ask about it</a><a class="button" data-product-buy>Buy now</a></div>
+          <p class="product-payment-note">No payment is taken until availability, condition and delivery have been confirmed personally.</p>
+        </div>
+      </section>
+
+      <section class="product-information"><div class="shell product-information-grid">
+        <div><p class="eyebrow">Specifications</p><h2>The useful details.</h2><ul class="product-specifications" data-product-specifications></ul></div>
+        <aside class="product-check-card"><p class="eyebrow">Before you buy</p><h2 data-comparison-title></h2><div data-product-comparisons></div></aside>
+      </div></section>
+
+      <section class="shell product-documents-section" data-documents-section hidden><div><p class="eyebrow">Reference material</p><h2>Manuals and manufacturer information.</h2></div><div class="product-document-links" data-product-documents></div></section>
+
+      <section class="product-delivery-section"><div class="shell product-delivery-grid"><div><p class="eyebrow">Collection &amp; delivery</p><h2 data-shipping-title></h2><p data-shipping-copy></p></div><div class="product-delivery-actions"><a class="button" data-product-buy-secondary>Reserve this item</a><a class="button button-secondary" href="/shop">Back to all items</a></div></div></section>
+    </article>
+    <section class="shell product-not-found" data-product-not-found hidden><p class="eyebrow">Item not found</p><h1>That item is not in the current catalogue.</h1><p>It may have been sold, renamed or removed while its details are being checked.</p><a class="button" href="/shop">Return to the shop</a></section>
+  </main>
+
+  <footer class="site-footer"><div class="shell footer-grid"><div><a class="brand brand-footer" href="/" aria-label="SWEETFIX home"><img class="brand-mark" src="/assets/sweetfix-logo-green.png" alt="" width="120" height="100" /><span>SWEETFIX</span></a><p>Friendly technology help in the Southern Lakes.</p></div><div><strong>Explore</strong><a href="/">Home</a><a href="/#services">Services</a><a href="/shop">Shop &amp; reuse</a></div><div><strong>Visit</strong><a href="/#about">About Matt</a><a href="/#areas">Areas covered</a><a href="/?interest=a%20shop%20item%20or%20refurbished%20computer">Ask about an item</a></div></div><div class="shell footer-bottom"><span>© <span data-year></span> SWEETFIX</span><span><a href="/privacy">Privacy</a> · Wānaka • Hāwea • Southern Lakes</span></div></footer>
+  <script src="/static-contact.js" defer></script>
+</body>
+</html>
