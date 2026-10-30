@@ -2,6 +2,7 @@
 <html lang="en-NZ">
 <head>
   <meta charset="utf-8" />
+  <base href="/" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#f4efe5" />
   <meta name="description" content="Refurbished computers, useful technology, computer tuition and local 3D printing from SWEETFIX in Wānaka." />
@@ -33,7 +34,7 @@
       <section id="items" class="shop-section catalogue-section" aria-labelledby="items-title">
         <div class="shell">
           <div class="catalogue-heading reveal"><div><h2 id="items-title">On the bench</h2><p>Available technology, organised by product type.</p></div><div class="stock-key" aria-label="Item availability key"><span class="available">Available</span></div></div>
-          <div class="catalogue-filters" data-catalogue-filters aria-label="Filter shop items"><button class="is-active" type="button" data-filter="All">All</button><button type="button" data-filter="Computers">Computers</button><button type="button" data-filter="Solar">Solar gear</button><button type="button" data-filter="Charging">Power banks</button><button type="button" data-filter="Photography">Instax film</button><button type="button" data-filter="Services">Services</button></div>
+          <div class="catalogue-filters" data-catalogue-filters aria-label="Filter shop items"><button class="is-active" type="button" data-filter="All">All <span>16</span></button><button type="button" data-filter="Computers">Computers <span>3</span></button><button type="button" data-filter="Solar">Solar gear <span>10</span></button><button type="button" data-filter="Charging">Power banks <span>2</span></button><button type="button" data-filter="Photography">Instax film <span>1</span></button><button type="button" data-filter="Services">Services</button></div>
           <div class="catalogue-grid">
             <div class="catalogue-products" data-catalogue-products aria-live="polite"><div class="catalogue-loading">Loading current stock…</div></div>
 
@@ -64,27 +65,6 @@
     <section class="buying-section shop-section"><div class="shell buying-layout"><div><p class="eyebrow">How buying works</p><h2>Simple, local and properly checked.</h2><p>Nothing is presented as ready until the exact model, condition and key functions have been checked. An enquiry does not commit you to buy.</p></div><ol class="buying-grid"><li><span>01</span><div><h3>Ask or reserve</h3><p>Tell me what you need.</p></div></li><li><span>02</span><div><h3>Get the real details</h3><p>See the exact condition, checks and final price.</p></div></li><li><span>03</span><div><h3>Set it up properly</h3><p>Collection, local delivery and setup can be arranged.</p></div></li></ol></div></section>
     <section class="shop-final"><div class="shell shop-final-inner"><div><p class="eyebrow">Looking for something specific?</p><h2>Tell me what would be useful.</h2><p>I can keep an eye out for a suitable refurbished laptop, part, cable or practical workshop solution.</p></div><a class="button button-light" href="/?interest=sourcing%20a%20useful%20technology%20item">Ask SWEETFIX</a></div></section>
   </main>
-
-  <dialog class="request-dialog purchase-dialog" data-purchase-dialog aria-labelledby="purchase-title">
-    <div class="dialog-top"><div><p class="eyebrow">Purchase request</p><h2 id="purchase-title">Reserve an item.</h2></div><button class="dialog-close" type="button" aria-label="Close purchase form" data-purchase-close>×</button></div>
-    <form class="request-form" data-purchase-form>
-      <input type="hidden" name="product_id" />
-      <div class="purchase-context"><div class="purchase-summary" data-purchase-summary></div><p class="purchase-shipping-note" data-shipping-note></p></div>
-      <p class="form-intro">Send your details to reserve the item. No payment is taken yet. Matt will confirm that it is still available, calculate final delivery, then send the total and a secure payment link.</p>
-      <div class="website-field" aria-hidden="true"><label>Leave this field empty<input name="website_address" autocomplete="off" tabindex="-1" /></label></div>
-      <div class="form-grid">
-        <label><span class="field-label">Full name <span class="required-mark" aria-hidden="true">*</span></span><input name="name" autocomplete="name" required /></label>
-        <label><span class="field-label">Email address <span class="required-mark" aria-hidden="true">*</span></span><input name="email" type="email" autocomplete="email" required /></label>
-        <label><span class="field-label">Phone number</span><input name="phone" type="tel" autocomplete="tel" /></label>
-        <label><span class="field-label">Delivery preference <span class="required-mark" aria-hidden="true">*</span></span><select name="delivery" required><option value="">Choose delivery</option><option value="pickup">Local pickup</option><option value="courier">Courier to a New Zealand address</option><option value="discuss">Discuss another arrangement</option></select></label>
-        <label class="form-wide"><span class="field-label">Delivery address or pickup area <span class="required-mark" aria-hidden="true">*</span></span><input name="address" autocomplete="street-address" required placeholder="Street, suburb, town and postcode, or your pickup area" /></label>
-      </div>
-      <label><span class="field-label">Anything Matt should know?</span><textarea name="note" rows="2" placeholder="Timing, setup help, questions or delivery access"></textarea></label>
-      <label class="check-row"><input name="agreement" type="checkbox" required /><span>I confirm these details are correct. I understand this reserves the item for review and that final delivery and payment will be confirmed before the sale.</span></label>
-      <p class="purchase-status" data-purchase-status role="alert" aria-live="polite"></p>
-      <div class="form-footer"><p>Availability is confirmed personally. Standalone power banks require pickup or a suitable specialist courier.</p><button class="button" type="submit">Reserve &amp; get final total <span aria-hidden="true">→</span></button></div>
-    </form>
-  </dialog>
 
   <footer class="site-footer"><div class="shell footer-grid"><div><a class="brand brand-footer" href="/" aria-label="SWEETFIX home"><img class="brand-mark" src="assets/sweetfix-logo-green.png" alt="" width="120" height="100" /><span>SWEETFIX</span></a><p>Friendly technology help in the Southern Lakes.</p></div><div><strong>Explore</strong><a href="/">Home</a><a href="/#services">Services</a><a href="/shop">Shop &amp; reuse</a></div><div><strong>Visit</strong><a href="/#about">About Matt</a><a href="/#areas">Areas covered</a><a href="/?interest=a%20shop%20item%20or%20refurbished%20computer">Ask about an item</a></div></div><div class="shell footer-bottom"><span>© <span data-year></span> SWEETFIX</span><span><a href="/privacy">Privacy</a> · Wānaka • Hāwea • Southern Lakes</span></div></footer>
   <div class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
