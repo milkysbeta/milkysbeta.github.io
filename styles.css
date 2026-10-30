@@ -75,10 +75,16 @@ button { color: inherit; }
 .hero { position: relative; min-height: 610px; overflow: hidden; background: var(--cream); }
 .hero-photo { position: absolute; z-index: 0; top: 0; right: 0; bottom: 0; width: 66%; overflow: hidden; }
 .hero-photo-base { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; }
-.hero-screen { position: absolute; z-index: 1; overflow: hidden; clip-path: polygon(0 4.7%, 94% 0, 100% 96.3%, 2.1% 100%); background: #0b1820; box-shadow: inset 0 0 18px rgba(0,0,0,.42); transform: translateZ(0); }
-.hero-screen-media { position: absolute; inset: -1%; width: 102%; height: 102%; object-fit: cover; opacity: 0; filter: saturate(.96) contrast(1.03); transform: scale(1.015); transition: opacity 1.15s ease; }
-.hero-screen-media.is-active { opacity: 1; }
+.hero-screen { position: absolute; z-index: 1; overflow: hidden; clip-path: polygon(0 2.9%, 93.2% 0, 100% 96.8%, 2% 100%); background: #f7f4ec; box-shadow: inset 0 0 16px rgba(0,0,0,.34); transform: translateZ(0); }
+.hero-screen-media { position: absolute; z-index: 0; top: 0; left: 0; width: 100%; height: auto; max-width: none; opacity: 0; filter: saturate(.94) contrast(1.02) brightness(.98); transform: translate3d(0,0,0); transform-origin: top center; transition: opacity 1.05s ease; will-change: transform, opacity; }
+.hero-screen-media.is-active { z-index: 1; opacity: 1; animation: hero-screen-page-scroll 8.8s cubic-bezier(.42,0,.18,1) both; }
+.hero-screen-media:first-child { background: #f8f4ec; }
+.hero-screen-media:last-child { background: #f4f1e8; }
 .hero-screen::after { content: ""; position: absolute; z-index: 2; inset: 0; background: linear-gradient(145deg, rgba(255,255,255,.13), transparent 34%, rgba(2,20,30,.1)); pointer-events: none; }
+@keyframes hero-screen-page-scroll {
+  0%, 11% { transform: translate3d(0,0,0); }
+  87%, 100% { transform: translate3d(0,-50%,0); }
+}
 .hero-photo::before { content: ""; position: absolute; z-index: 3; inset: 0; background: linear-gradient(90deg, var(--cream) 0%, rgba(248,244,236,.97) 11%, rgba(248,244,236,.62) 30%, transparent 52%); pointer-events: none; }
 .hero-photo::after { content: ""; position: absolute; z-index: 3; inset: auto 0 0; height: 22%; background: linear-gradient(0deg, rgba(0,0,0,.1), transparent); opacity: .18; pointer-events: none; }
 .hero-inner { position: relative; z-index: 2; display: grid; align-items: center; min-height: 610px; }
@@ -342,6 +348,7 @@ h2 { margin: 0; font-size: clamp(2.2rem, 4vw, 4.35rem); letter-spacing: -.055em;
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
   .hero-screen-media { transition: none; }
+  .hero-screen-media.is-active { animation: none; }
 }
 
 html.reduce-motion { scroll-behavior: auto; }

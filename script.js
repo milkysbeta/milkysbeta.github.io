@@ -68,7 +68,8 @@ document.addEventListener('keydown', (event) => {
 const systemReducesMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (systemReducesMotion) doc.classList.add('reduce-motion');
 
-  const heroScreenSource = { x: 635, y: 346, width: 433, height: 297 };
+// Screen corners measured against the optimized 1400 × 876 hero WebP.
+const heroScreenSource = { x: 557.35, y: 297.56, width: 388.64, height: 275.61 };
 const positionFraction = (value, fallback = .5) => value?.endsWith('%') ? Number.parseFloat(value) / 100 : fallback;
 const placeHeroScreen = () => {
   if (!heroPhoto || !heroPhotoBase || !heroScreen || !heroPhotoBase.naturalWidth) return;
@@ -111,7 +112,7 @@ const stopHeroScreenRotation = () => {
 };
 const startHeroScreenRotation = () => {
   if (systemReducesMotion || heroScreenMedia.length < 2 || heroScreenTimer || document.hidden) return;
-  heroScreenTimer = window.setInterval(() => showHeroScreenMedia(heroScreenIndex + 1), 5200);
+  heroScreenTimer = window.setInterval(() => showHeroScreenMedia(heroScreenIndex + 1), 9000);
 };
 startHeroScreenRotation();
 document.addEventListener('visibilitychange', () => {
