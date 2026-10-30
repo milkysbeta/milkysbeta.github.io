@@ -22,7 +22,15 @@
     }
   };
   const imageUrl = (source = '') => /^https?:\/\//.test(source) ? source : `/${source.replace(/^\//, '')}`;
-  const money = `NZ$${Number(product.priceNzd || 0).toLocaleString('en-NZ')}`;
+  const regularPrice = Number(product.priceNzd || 0);
+  const salePrice = Number(product.salePriceNzd || 0);
+  const money = product.priceMode === 'free'
+    ? 'Free'
+    : product.priceMode === 'confirm'
+      ? 'Price to confirm'
+      : salePrice > 0 && salePrice < regularPrice
+        ? `Special NZ$${salePrice.toLocaleString('en-NZ')} · was NZ$${regularPrice.toLocaleString('en-NZ')}`
+        : `NZ$${regularPrice.toLocaleString('en-NZ')}`;
   const buy = `/shop?buy=${encodeURIComponent(product.id)}`;
   const comparisonByCategory = {
     Computers: { title: 'Checked, described and ready for a second life.', points: [['Compared with buying new', 'A refurbished business or gaming computer can offer much more performance for the money, without sending useful hardware to e-waste.'], ['SWEETFIX checks', 'The exact model, key specifications, ports, storage, battery and obvious faults are checked before handover.'], ['Good to know', 'Ask if you want setup, data transfer, a larger SSD or more memory included in the final quote.']] },

@@ -12,6 +12,16 @@
   const imageUrl = (source = '') => /^https?:\/\//.test(source) ? source : `/${source.replace(/^\//, '')}`;
   const detailUrl = (product) => `/shop/item?id=${encodeURIComponent(product.id)}`;
 
+  function priceDetails(product) {
+    const mode = String(product.priceMode || 'fixed');
+    const regular = Number(product.priceNzd || 0);
+    const sale = Number(product.salePriceNzd || 0);
+    if (mode === 'free') return { label: 'Price', primary: 'Free', plain: 'Free', note: product.priceNote || 'No payment required' };
+    if (mode === 'confirm') return { label: 'Price', primary: 'To confirm', plain: 'Price to confirm', note: product.priceNote || 'Final price confirmed before payment' };
+    if (sale > 0 && sale < regular) return { label: 'Special price', primary: `NZ$${sale.toLocaleString('en-NZ')}`, plain: `NZ$${sale.toLocaleString('en-NZ')}`, compare: `NZ$${regular.toLocaleString('en-NZ')}`, note: product.priceNote || '' };
+    return { label: product.quantity > 1 ? 'Price per item' : 'Asking price', primary: `NZ$${regular.toLocaleString('en-NZ')}`, plain: `NZ$${regular.toLocaleString('en-NZ')}`, note: product.priceNote || '' };
+  }
+
   function shippingAdvice(product) {
     if (product.category === 'Charging') return {
       label: 'Local pickup or specialist courier',
@@ -36,6 +46,7 @@
   }
 
   function productCard(product) {
+    const price = priceDetails(product);
     const specs = product.specifications.map((specification) => `<li>${escapeHtml(specification)}</li>`).join('');
     const documents = product.documents.length ? `<div class="catalog-documents"><strong>Manufacturer information</strong>${product.documents.map((document) => `<a href="${escapeHtml(document.url)}" target="_blank" rel="noreferrer">${escapeHtml(document.label)} <span aria-hidden="true">↗</span></a>`).join('')}</div>` : '';
     return `<article class="catalog-card product-card live-product reveal is-visible" data-catalog-category="${escapeHtml(product.category)}" data-product-id="${escapeHtml(product.id)}">
@@ -49,7 +60,7 @@
         <ul class="spec-list">${specs}</ul>
         <p class="small-note">${product.quantity > 1 ? `${product.quantity} available · ` : ''}${escapeHtml(product.condition)} · Pickup: ${escapeHtml(product.location)}</p>
         <details class="product-details"><summary>Full details &amp; documents</summary><p>${escapeHtml(product.description)}</p>${documents}</details>
-        <div class="card-action product-card-action"><span class="price"><small>${product.quantity > 1 ? 'Price per item' : 'Asking price'}</small><strong>NZ$${Number(product.priceNzd || 0).toLocaleString('en-NZ')}</strong></span><button class="button button-small buy-button" type="button" data-buy-product="${escapeHtml(product.id)}">Buy now</button></div>
+        <div class="card-action product-card-action"><span class="price"><small>${escapeHtml(price.label)}</small><strong>${escapeHtml(price.primary)}</strong>${price.compare ? `<del>${escapeHtml(price.compare)}</del>` : ''}${price.note ? `<em>${escapeHtml(price.note)}</em>` : ''}</span><button class="button button-small buy-button" type="button" data-buy-product="${escapeHtml(product.id)}">${product.priceMode === 'confirm' ? 'Reserve or ask' : product.priceMode === 'free' ? 'Claim this item' : 'Buy now'}</button></div>
       </div>
     </article>`;
   }
@@ -76,7 +87,8 @@
     purchaseForm.hidden = false;
     purchaseForm.reset();
     purchaseForm.elements.product_id.value = product.id;
-    if (summary) summary.innerHTML = `<img src="${escapeHtml(imageUrl(product.image))}" alt="" /><span><small>${escapeHtml(product.category)}</small><strong>${escapeHtml(product.title)}</strong><em>${escapeHtml(product.model)} · NZ$${Number(product.priceNzd || 0).toLocaleString('en-NZ')}</em></span>`;
+    const price = priceDetails(product);
+    if (summary) summary.innerHTML = `<img src="${escapeHtml(imageUrl(product.image))}" alt="" /><span><small>${escapeHtml(product.category)}</small><strong>${escapeHtml(product.title)}</strong><em>${escapeHtml(product.model)} · ${escapeHtml(price.plain)}</em></span>`;
     if (shipping) shipping.innerHTML = `<strong>${escapeHtml(advice.label)}</strong><span>${escapeHtml(advice.note)}</span>`;
     if (courierOption) courierOption.disabled = advice.pickupOnly;
     purchaseForm.elements.delivery.value = advice.pickupOnly ? 'pickup' : '';
@@ -121,6 +133,7 @@
     const product = productById.get(String(data.get('product_id')));
     if (!product) return;
     const advice = shippingAdvice(product);
+    const price = priceDetails(product);
     const button = purchaseForm.querySelector('button[type="submit"]');
     const status = purchaseForm.querySelector('[data-purchase-status]');
     const original = button.textContent;
@@ -128,14 +141,14 @@
     button.textContent = product.paymentUrl ? 'Opening secure payment...' : 'Saving your order...';
     if (status) status.textContent = '';
     try {
-      const orderLines = [`Item: ${product.title}`, `Model: ${product.model}`, `Listed price: NZ$${Number(product.priceNzd || 0).toLocaleString('en-NZ')}`, `Delivery preference: ${data.get('delivery')}`, `Name: ${data.get('name')}`, `Email: ${data.get('email')}`, `Phone: ${data.get('phone')}`, `Address: ${data.get('address') || 'Pickup or address to confirm'}`, `Buyer note: ${data.get('note') || 'None'}`];
+      const orderLines = [`Item: ${product.title}`, `Model: ${product.model}`, `Listed price: ${price.plain}`, `Delivery preference: ${data.get('delivery')}`, `Name: ${data.get('name')}`, `Email: ${data.get('email')}`, `Phone: ${data.get('phone')}`, `Address: ${data.get('address') || 'Pickup or address to confirm'}`, `Buyer note: ${data.get('note') || 'None'}`];
       const response = await fetch('/api/requests', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: data.get('name'), email: data.get('email'), phone: data.get('phone'), address: data.get('address'), area: '',
           service: 'Refurbished device or item', device: `${product.title} · ${product.model}`,
-          problem: [`Purchase request: ${product.title} (${product.model})`, `Listed price: NZ$${Number(product.priceNzd || 0).toLocaleString('en-NZ')}`, `Delivery preference: ${data.get('delivery')}`, `Shipping guidance: ${advice.note}`, `Buyer note: ${data.get('note') || 'None'}`].join('\n'),
+          problem: [`Purchase request: ${product.title} (${product.model})`, `Listed price: ${price.plain}`, `Delivery preference: ${data.get('delivery')}`, `Shipping guidance: ${advice.note}`, `Buyer note: ${data.get('note') || 'None'}`].join('\n'),
           agreement: data.get('agreement') === 'on', websiteAddress: data.get('website_address'), formStartedAt: purchaseOpenedAt, photos: []
         })
       });
