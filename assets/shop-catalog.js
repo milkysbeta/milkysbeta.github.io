@@ -4,6 +4,7 @@
   const purchaseDialog = document.querySelector('[data-purchase-dialog]');
   const purchaseForm = document.querySelector('[data-purchase-form]');
   const productById = new Map();
+  const shopEmail = 'admin@sweetfix.nz';
   let purchaseOpenedAt = 0;
   if (!root || !filters) return;
 
@@ -71,6 +72,8 @@
     const summary = purchaseDialog.querySelector('[data-purchase-summary]');
     const shipping = purchaseDialog.querySelector('[data-shipping-note]');
     const courierOption = purchaseForm.querySelector('option[value="courier"]');
+    purchaseDialog.querySelector('[data-purchase-confirmation]')?.remove();
+    purchaseForm.hidden = false;
     purchaseForm.reset();
     purchaseForm.elements.product_id.value = product.id;
     if (summary) summary.innerHTML = `<img src="${escapeHtml(imageUrl(product.image))}" alt="" /><span><small>${escapeHtml(product.category)}</small><strong>${escapeHtml(product.title)}</strong><em>${escapeHtml(product.model)} · NZ$${Number(product.priceNzd || 0).toLocaleString('en-NZ')}</em></span>`;
@@ -81,6 +84,17 @@
     if (status) status.textContent = '';
     purchaseOpenedAt = Date.now();
     purchaseDialog.showModal();
+  }
+
+  function showPurchaseConfirmation({ reference, title, message, emailHref = '', emailLabel = 'Email this order' }) {
+    purchaseForm.hidden = true;
+    purchaseDialog.querySelector('[data-purchase-confirmation]')?.remove();
+    const panel = document.createElement('section');
+    panel.className = 'purchase-confirmation';
+    panel.dataset.purchaseConfirmation = '';
+    panel.innerHTML = `<span class="purchase-confirmation-mark" aria-hidden="true">✓</span><p class="eyebrow">${escapeHtml(reference)}</p><h3>${escapeHtml(title)}</h3><p>${escapeHtml(message)}</p><div class="purchase-confirmation-actions">${emailHref ? `<a class="button" href="${escapeHtml(emailHref)}">${escapeHtml(emailLabel)}</a>` : ''}<button class="button button-ghost" type="button" data-purchase-done>Continue shopping</button></div>`;
+    purchaseForm.insertAdjacentElement('afterend', panel);
+    panel.querySelector('[data-purchase-done]')?.addEventListener('click', () => purchaseDialog.close());
   }
 
   root.addEventListener('click', (event) => {
@@ -114,6 +128,7 @@
     button.textContent = product.paymentUrl ? 'Opening secure payment...' : 'Saving your order...';
     if (status) status.textContent = '';
     try {
+      const orderLines = [`Item: ${product.title}`, `Model: ${product.model}`, `Listed price: NZ$${Number(product.priceNzd || 0).toLocaleString('en-NZ')}`, `Delivery preference: ${data.get('delivery')}`, `Name: ${data.get('name')}`, `Email: ${data.get('email')}`, `Phone: ${data.get('phone')}`, `Address: ${data.get('address') || 'Pickup or address to confirm'}`, `Buyer note: ${data.get('note') || 'None'}`];
       const response = await fetch('/api/requests', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -124,6 +139,8 @@
           agreement: data.get('agreement') === 'on', websiteAddress: data.get('website_address'), formStartedAt: purchaseOpenedAt, photos: []
         })
       });
+      const responseType = response.headers.get('content-type') || '';
+      if (!responseType.includes('application/json')) throw Object.assign(new Error('The hosted order service is not connected yet.'), { checkoutUnavailable: true });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || 'Your purchase request could not be saved.');
       if (product.paymentUrl) {
@@ -132,12 +149,17 @@
         window.location.assign(paymentUrl.href);
         return;
       }
-      purchaseDialog.close();
-      purchaseForm.reset();
-      const toast = document.querySelector('.toast');
-      if (toast) { toast.textContent = `Order ${result.ticketCode} is saved. Matt will confirm availability, delivery and send the secure payment link.`; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 7000); }
+      showPurchaseConfirmation({ reference: `Order ${result.ticketCode}`, title: 'Your order request is saved.', message: 'Matt will confirm availability, delivery and the secure payment link by email.' });
     } catch (error) {
-      if (status) status.textContent = error.message || 'Your purchase request could not be saved.';
+      if (error.checkoutUnavailable) {
+        const draftReference = `SF-WEB-${Date.now().toString(36).toUpperCase()}`;
+        const draft = { reference: draftReference, productId: product.id, createdAt: new Date().toISOString(), details: Object.fromEntries(data.entries()) };
+        try { localStorage.setItem('sweetfix-order-draft', JSON.stringify(draft)); } catch {}
+        const subject = `${draftReference}: ${product.title}`;
+        const body = [`SWEETFIX order draft ${draftReference}`, '', ...orderLines, '', 'Please confirm availability, delivery and payment details.'].join('\n');
+        const emailHref = `mailto:${shopEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        showPurchaseConfirmation({ reference: draftReference, title: 'One last step to send your order.', message: `Your order draft is saved in this browser. Email it to ${shopEmail} so Matt can confirm availability, delivery and payment.`, emailHref });
+      } else if (status) status.textContent = error.message || 'Your purchase request could not be saved.';
     } finally {
       button.disabled = false;
       button.textContent = original;

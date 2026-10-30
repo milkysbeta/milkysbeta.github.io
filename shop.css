@@ -39,16 +39,24 @@
 .service-catalogue-heading{display:grid;grid-template-columns:minmax(0,.9fr) minmax(320px,.7fr);gap:clamp(24px,5vw,72px);align-items:end;margin-bottom:24px;padding-bottom:22px;border-bottom:1px solid rgba(12,46,38,.16)}
 .service-catalogue-heading h2{max-width:720px;margin:.12em 0 0;font-size:clamp(2.1rem,4vw,3.8rem);line-height:.98}
 .service-catalogue-heading>p{margin:0;color:#3e5b53;font-size:1rem;line-height:1.65}
-.service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.service-grid .catalog-card{background:rgba(255,253,248,.82);border-color:rgba(12,46,38,.18)}
-.service-grid .catalog-card-wide{grid-column:span 2}
-.live-product .catalog-product-media{min-height:250px;padding:12px}
-.live-product .catalog-product-media .card-media{width:100%;height:100%;max-width:100%;max-height:100%;padding:clamp(20px,2.25vw,34px);object-fit:contain;object-position:50% 50%}
-.live-product[data-product-id="shi400-12"] .card-media,.live-product[data-product-id="sti500-24-230"] .card-media,.live-product[data-product-id="sti200-12-230"] .card-media{padding:clamp(26px,2.8vw,42px)}
-.live-product[data-product-id="tbb-combi-provisional"] .card-media,.live-product[data-product-id="cf2060l"] .card-media{padding:clamp(18px,2vw,30px) clamp(32px,4vw,62px)}
-@media(max-width:1100px){.service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.service-grid .catalog-card-wide{grid-column:span 2}}
-@media(max-width:800px){.service-catalogue-heading{grid-template-columns:1fr}.service-grid .catalog-card-wide{display:flex}}
-@media(max-width:600px){.service-catalogue{padding:18px;border-radius:16px}.service-grid{grid-template-columns:1fr}.service-grid .catalog-card-wide{grid-column:auto}}
+.service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.service-grid .catalog-card{border-width:1px;background:rgba(250,252,246,.9);box-shadow:0 14px 30px rgba(10,48,38,.08)}
+.service-grid .service-group{min-width:0;border-radius:15px;overflow:hidden}
+.service-grid .service-group-upgrades{border-color:#7aa38c;background:#f1f7ef}
+.service-grid .service-group-drives{border-color:#9aaf74;background:#f5f7ec}
+.service-grid .service-group-tuition{border-color:#729a93;background:#edf6f3}
+.service-grid .service-group-making{border-color:#78966e;background:#f0f6ec}
+.service-grid .service-group .card-media{height:clamp(190px,20vw,250px);object-fit:cover}
+.service-grid .service-group-upgrades .card-media{object-position:center 55%}
+.service-grid .service-group-making .card-media{object-position:center 48%}
+.service-options{display:grid;gap:0;margin:16px 0 0;padding:0;list-style:none;border-top:1px solid rgba(12,46,38,.13)}
+.service-options li{display:grid;gap:2px;padding:11px 0;border-bottom:1px solid rgba(12,46,38,.13)}
+.service-options strong{color:var(--green-deep);font-size:.91rem}
+.service-options span{color:#506a62;font-size:.79rem;line-height:1.4}
+.live-product .catalog-product-media{min-height:250px;padding:0;border:0;border-radius:0}
+.live-product .catalog-product-media .card-media{width:100%;height:100%;max-width:100%;max-height:100%;padding:0;object-fit:contain;object-position:50% 50%}
+@media(max-width:800px){.service-catalogue-heading{grid-template-columns:1fr}}
+@media(max-width:680px){.service-catalogue{padding:18px;border-radius:16px}.service-grid{grid-template-columns:1fr}.service-grid .service-group .card-media{height:220px}}
 .live-product:hover .card-media{transform:scale(1.008)}
 .product-quantity{display:none!important}
 .product-card-action{display:grid;gap:11px;align-items:stretch;padding-top:16px}
@@ -78,6 +86,12 @@
 .purchase-shipping-note{display:grid;gap:3px;align-content:center;margin:0;padding:10px 12px;border-left:4px solid var(--green);background:#e7efe4;color:#29483f;font-size:.8rem;line-height:1.4}
 .purchase-shipping-note strong{color:#123d31}
 .purchase-status{min-height:1.4em;margin:0;color:#a33931;font-weight:750}
+.purchase-confirmation{display:grid;justify-items:center;gap:10px;padding:clamp(28px,6vw,68px);text-align:center}
+.purchase-confirmation-mark{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:#dcebd8;color:var(--green-deep);font-size:1.7rem;font-weight:900}
+.purchase-confirmation h3{max-width:620px;margin:0;font-size:clamp(1.75rem,3.8vw,3rem);line-height:1.05}
+.purchase-confirmation>p:not(.eyebrow){max-width:620px;margin:0;color:var(--ink-soft);font-size:1rem;line-height:1.65}
+.purchase-confirmation-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:10px}
+.button-ghost{border-color:rgba(12,46,38,.24);background:transparent;color:var(--green-deep)}
 
 /* Keep catalogue bullets in a dedicated gutter at every text size. */
 .spec-list li,.topic-list li{padding-left:19px}
