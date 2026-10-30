@@ -47,9 +47,9 @@
         <h3><a class="product-title-link" href="${detailUrl(product)}">${escapeHtml(product.title)}</a></h3>
         <p class="product-model">${escapeHtml(product.model)}</p>
         <ul class="spec-list">${specs}</ul>
-        <p class="small-note">${escapeHtml(product.condition)} · Pickup: ${escapeHtml(product.location)}</p>
+        <p class="small-note">${product.quantity > 1 ? `${product.quantity} available · ` : ''}${escapeHtml(product.condition)} · Pickup: ${escapeHtml(product.location)}</p>
         <details class="product-details"><summary>Full details &amp; documents</summary><p>${escapeHtml(product.description)}</p>${documents}</details>
-        <div class="card-action product-card-action"><span class="price"><small>Asking price</small><strong>NZ$${Number(product.priceNzd || 0).toLocaleString('en-NZ')}</strong></span><div class="product-buttons"><a class="button button-small button-outline" href="${enquiryUrl(product)}">Ask about it</a><button class="button button-small buy-button" type="button" data-buy-product="${escapeHtml(product.id)}">Buy now</button></div></div>
+        <div class="card-action product-card-action"><span class="price"><small>${product.quantity > 1 ? 'Price per item' : 'Asking price'}</small><strong>NZ$${Number(product.priceNzd || 0).toLocaleString('en-NZ')}</strong></span><div class="product-buttons"><a class="button button-small button-outline" href="${enquiryUrl(product)}">Ask about it</a><button class="button button-small buy-button" type="button" data-buy-product="${escapeHtml(product.id)}">Buy now</button></div></div>
       </div>
     </article>`;
   }
