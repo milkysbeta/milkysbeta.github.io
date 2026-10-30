@@ -21,7 +21,7 @@
       <a class="brand" href="/" aria-label="SWEETFIX home"><img class="brand-mark" src="assets/sweetfix-logo-green.png" alt="" width="74" height="62" /><span>SWEETFIX</span></a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation"><span class="sr-only">Open navigation</span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></button>
       <nav id="site-navigation" class="site-nav" aria-label="Primary navigation"><a href="/">Home</a><a href="/#services">Services</a><a class="is-active" aria-current="page" href="/shop">Shop &amp; reuse</a><a href="/#areas">Areas</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav>
-      <div class="header-actions"><a class="button button-small" href="/?interest=a%20shop%20item%20or%20refurbished%20computer">Ask about an item</a></div>
+      <div class="header-actions"><a class="button button-small" href="#items">Browse items</a></div>
     </div>
   </header>
 
@@ -38,7 +38,10 @@
           <div class="catalogue-grid">
             <div class="catalogue-products" data-catalogue-products aria-live="polite"><div class="catalogue-loading">Loading current stock…</div></div>
 
-            <article class="catalog-card service-card reveal" data-catalog-category="Services"><img class="card-media" src="assets/shop-memory-storage.jpg" alt="Laptop memory modules and an M.2 solid-state drive on a workbench" loading="lazy" decoding="async" /><div class="card-body"><div class="card-kicker"><span>Parts &amp; fitting</span></div><h3>Memory &amp; SSD upgrades</h3><p>Speed up a compatible computer with correctly matched memory or storage. Parts are quoted for the exact model.</p><div class="card-action"><span class="price"><small>Compatibility</small><strong>Checked first</strong></span><a class="button button-small" href="/?interest=a%20memory%20or%20SSD%20upgrade&amp;service=Computer%20repair%20or%20upgrade">Ask about an upgrade</a></div></div></article>
+            <section class="service-catalogue reveal" data-catalog-category="Services" aria-labelledby="service-catalogue-title">
+              <div class="service-catalogue-heading"><div><p class="eyebrow">Workshop &amp; support</p><h2 id="service-catalogue-title">Services, fitting and practical help.</h2></div><p>These are bookable services rather than products sitting on the shelf. Tell me what you are working with and I will confirm the approach and price.</p></div>
+              <div class="service-grid">
+            <article class="catalog-card service-card reveal"><img class="card-media" src="assets/shop-memory-storage.jpg" alt="Laptop memory modules and an M.2 solid-state drive on a workbench" loading="lazy" decoding="async" /><div class="card-body"><div class="card-kicker"><span>Parts &amp; fitting</span></div><h3>Memory &amp; SSD upgrades</h3><p>Speed up a compatible computer with correctly matched memory or storage. Parts are quoted for the exact model.</p><div class="card-action"><span class="price"><small>Compatibility</small><strong>Checked first</strong></span><a class="button button-small" href="/?interest=a%20memory%20or%20SSD%20upgrade&amp;service=Computer%20repair%20or%20upgrade">Ask about an upgrade</a></div></div></article>
 
             <article class="catalog-card service-card reveal" data-catalog-category="Services"><img class="card-media" src="assets/shop-cables-connections.jpg" alt="Network, USB-C and HDMI cables with an Ethernet adapter" loading="lazy" decoding="async" /><div class="card-body"><div class="card-kicker"><span>Useful connections</span></div><h3>Cables &amp; adapters</h3><p>Network cables, USB leads, display adapters and the particular connector that solves a particular problem.</p><div class="card-action"><span class="price"><small>New &amp; tested used</small><strong>Matched to suit</strong></span><a class="button button-small" href="/?interest=a%20cable%20or%20adapter">Inquire</a></div></div></article>
 
@@ -56,7 +59,9 @@
 
             <article class="catalog-card service-card reveal" data-catalog-category="Services"><img class="card-media" src="assets/service-3d-printing-card-v2.png" alt="A desktop 3D printer making a practical cable organiser" loading="lazy" decoding="async" /><div class="card-body"><div class="card-kicker"><span>3D printing</span></div><h3>Parts, prototypes &amp; odd ideas</h3><p>Useful replacement pieces, brackets, organisers, workshop tools, lamps and small-run objects.</p><div class="card-action"><span class="price"><small>Material, time &amp; finishing</small><strong>Quoted clearly</strong></span><a class="button button-small" href="/?interest=a%203D%20printing%20project&amp;service=3D%20printing">Discuss a print</a></div></div></article>
 
-            <article class="catalog-card service-card reuse-card reveal" data-catalog-category="Services"><div class="card-media reuse-visual" aria-hidden="true"><span>Repair</span><span>Reuse</span><span>Recycle</span></div><div class="card-body"><div class="card-kicker"><span>Responsible reuse</span></div><h3>Before it becomes e-waste</h3><p>Let’s see whether an old computer can be repaired, upgraded, donated for useful parts or responsibly recycled.</p><div class="card-action"><span class="price"><small>Collection, wiping &amp; disposal</small><strong>Quoted first</strong></span><a class="button button-small" href="/?interest=computer%20reuse%20or%20e-waste%20help">Ask about an old device</a></div></div></article>
+            <article class="catalog-card service-card reuse-card reveal"><div class="card-media reuse-visual" aria-hidden="true"><span>Repair</span><span>Reuse</span><span>Recycle</span></div><div class="card-body"><div class="card-kicker"><span>Responsible reuse</span></div><h3>Before it becomes e-waste</h3><p>Let’s see whether an old computer can be repaired, upgraded, donated for useful parts or responsibly recycled.</p><div class="card-action"><span class="price"><small>Collection, wiping &amp; disposal</small><strong>Quoted first</strong></span><a class="button button-small" href="/?interest=computer%20reuse%20or%20e-waste%20help">Ask about an old device</a></div></div></article>
+              </div>
+            </section>
           </div>
         </div>
       </section>
@@ -67,11 +72,11 @@
   </main>
 
   <dialog class="request-dialog purchase-dialog" data-purchase-dialog aria-labelledby="purchase-title">
-    <div class="dialog-top"><div><p class="eyebrow">Purchase request</p><h2 id="purchase-title">Reserve an item.</h2></div><button class="dialog-close" type="button" aria-label="Close purchase form" data-purchase-close>×</button></div>
+    <div class="dialog-top"><div><p class="eyebrow">Buy from SWEETFIX</p><h2 id="purchase-title">Delivery and payment.</h2></div><button class="dialog-close" type="button" aria-label="Close purchase form" data-purchase-close>×</button></div>
     <form class="request-form" data-purchase-form>
       <input type="hidden" name="product_id" />
       <div class="purchase-context"><div class="purchase-summary" data-purchase-summary></div><p class="purchase-shipping-note" data-shipping-note></p></div>
-      <p class="form-intro">Send your details to reserve the item. No payment is taken yet. Matt will confirm that it is still available, calculate final delivery, then send the total and a secure payment link.</p>
+      <p class="form-intro">Enter your details and choose pickup or delivery. If secure online payment is available for this item, you will continue to Stripe. Otherwise Matt will confirm the final delivery total and send a secure payment link.</p>
       <div class="website-field" aria-hidden="true"><label>Leave this field empty<input name="website_address" autocomplete="off" tabindex="-1" /></label></div>
       <div class="form-grid">
         <label><span class="field-label">Full name <span class="required-mark" aria-hidden="true">*</span></span><input name="name" autocomplete="name" required /></label>
@@ -81,9 +86,9 @@
         <label class="form-wide"><span class="field-label">Delivery address or pickup area <span class="required-mark" aria-hidden="true">*</span></span><input name="address" autocomplete="street-address" required placeholder="Street, suburb, town and postcode, or your pickup area" /></label>
       </div>
       <label><span class="field-label">Anything Matt should know?</span><textarea name="note" rows="2" placeholder="Timing, setup help, questions or delivery access"></textarea></label>
-      <label class="check-row"><input name="agreement" type="checkbox" required /><span>I confirm these details are correct. I understand this reserves the item for review and that final delivery and payment will be confirmed before the sale.</span></label>
+      <label class="check-row"><input name="agreement" type="checkbox" required /><span>I confirm these details are correct. I understand availability and the final delivery total must be confirmed before dispatch.</span></label>
       <p class="purchase-status" data-purchase-status role="alert" aria-live="polite"></p>
-      <div class="form-footer"><p>Availability is confirmed personally. Standalone power banks require pickup or a suitable specialist courier.</p><button class="button" type="submit">Reserve &amp; get final total <span aria-hidden="true">→</span></button></div>
+      <div class="form-footer"><p>Secure card payment is handled by Stripe when enabled. Standalone power banks require pickup or a suitable specialist courier.</p><button class="button" type="submit">Continue with purchase <span aria-hidden="true">→</span></button></div>
     </form>
   </dialog>
 

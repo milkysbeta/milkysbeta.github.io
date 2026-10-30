@@ -9,7 +9,6 @@
 
   const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[character]);
   const imageUrl = (source = '') => /^https?:\/\//.test(source) ? source : `/${source.replace(/^\//, '')}`;
-  const enquiryUrl = (product) => `/?interest=${encodeURIComponent(`the ${product.title} (${product.model})`)}&service=${encodeURIComponent('Refurbished device or item')}`;
   const detailUrl = (product) => `/shop/item?id=${encodeURIComponent(product.id)}`;
 
   function shippingAdvice(product) {
@@ -40,7 +39,7 @@
     const documents = product.documents.length ? `<div class="catalog-documents"><strong>Manufacturer information</strong>${product.documents.map((document) => `<a href="${escapeHtml(document.url)}" target="_blank" rel="noreferrer">${escapeHtml(document.label)} <span aria-hidden="true">↗</span></a>`).join('')}</div>` : '';
     return `<article class="catalog-card product-card live-product reveal is-visible" data-catalog-category="${escapeHtml(product.category)}" data-product-id="${escapeHtml(product.id)}">
       <a class="catalog-product-media product-detail-link" href="${detailUrl(product)}" aria-label="View ${escapeHtml(product.title)} details">
-        <img class="card-media" src="${escapeHtml(imageUrl(product.image))}" alt="${escapeHtml(product.imageAlt || product.title)}" loading="lazy" decoding="async" />
+        <img class="card-media" src="${escapeHtml(imageUrl(product.image))}" alt="${escapeHtml(product.imageAlt || product.title)}" decoding="async" />
       </a>
       <div class="card-body">
         <div class="card-kicker"><span>${escapeHtml(product.category)}</span></div>
@@ -49,7 +48,7 @@
         <ul class="spec-list">${specs}</ul>
         <p class="small-note">${product.quantity > 1 ? `${product.quantity} available · ` : ''}${escapeHtml(product.condition)} · Pickup: ${escapeHtml(product.location)}</p>
         <details class="product-details"><summary>Full details &amp; documents</summary><p>${escapeHtml(product.description)}</p>${documents}</details>
-        <div class="card-action product-card-action"><span class="price"><small>${product.quantity > 1 ? 'Price per item' : 'Asking price'}</small><strong>NZ$${Number(product.priceNzd || 0).toLocaleString('en-NZ')}</strong></span><div class="product-buttons"><a class="button button-small button-outline" href="${enquiryUrl(product)}">Ask about it</a><button class="button button-small buy-button" type="button" data-buy-product="${escapeHtml(product.id)}">Buy now</button></div></div>
+        <div class="card-action product-card-action"><span class="price"><small>${product.quantity > 1 ? 'Price per item' : 'Asking price'}</small><strong>NZ$${Number(product.priceNzd || 0).toLocaleString('en-NZ')}</strong></span><button class="button button-small buy-button" type="button" data-buy-product="${escapeHtml(product.id)}">Buy now</button></div>
       </div>
     </article>`;
   }
@@ -112,7 +111,7 @@
     const status = purchaseForm.querySelector('[data-purchase-status]');
     const original = button.textContent;
     button.disabled = true;
-    button.textContent = 'Saving your request...';
+    button.textContent = product.paymentUrl ? 'Opening secure payment...' : 'Saving your order...';
     if (status) status.textContent = '';
     try {
       const response = await fetch('/api/requests', {
@@ -127,10 +126,16 @@
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || 'Your purchase request could not be saved.');
+      if (product.paymentUrl) {
+        const paymentUrl = new URL(product.paymentUrl);
+        if (paymentUrl.hostname.endsWith('stripe.com')) paymentUrl.searchParams.set('prefilled_email', String(data.get('email') || ''));
+        window.location.assign(paymentUrl.href);
+        return;
+      }
       purchaseDialog.close();
       purchaseForm.reset();
       const toast = document.querySelector('.toast');
-      if (toast) { toast.textContent = `Request ${result.ticketCode} is saved. Matt will confirm availability, postage and the payment link.`; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 7000); }
+      if (toast) { toast.textContent = `Order ${result.ticketCode} is saved. Matt will confirm availability, delivery and send the secure payment link.`; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 7000); }
     } catch (error) {
       if (status) status.textContent = error.message || 'Your purchase request could not be saved.';
     } finally {

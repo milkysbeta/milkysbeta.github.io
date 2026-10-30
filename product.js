@@ -23,7 +23,6 @@
   };
   const imageUrl = (source = '') => /^https?:\/\//.test(source) ? source : `/${source.replace(/^\//, '')}`;
   const money = `NZ$${Number(product.priceNzd || 0).toLocaleString('en-NZ')}`;
-  const enquiry = `/?interest=${encodeURIComponent(`the ${product.title} (${product.model})`)}&service=${encodeURIComponent('Refurbished device or item')}`;
   const buy = `/shop?buy=${encodeURIComponent(product.id)}`;
   const comparisonByCategory = {
     Computers: { title: 'Checked, described and ready for a second life.', points: [['Compared with buying new', 'A refurbished business or gaming computer can offer much more performance for the money, without sending useful hardware to e-waste.'], ['SWEETFIX checks', 'The exact model, key specifications, ports, storage, battery and obvious faults are checked before handover.'], ['Good to know', 'Ask if you want setup, data transfer, a larger SSD or more memory included in the final quote.']] },
@@ -54,7 +53,6 @@
   setText('[data-shipping-copy]', shipping.copy);
   const image = document.querySelector('[data-product-image]');
   if (image) { image.src = imageUrl(product.image); image.alt = product.imageAlt || product.title; }
-  document.querySelectorAll('[data-product-enquire]').forEach((link) => link.href = enquiry);
   document.querySelectorAll('[data-product-buy],[data-product-buy-secondary]').forEach((link) => link.href = buy);
   const specs = document.querySelector('[data-product-specifications]');
   if (specs) specs.innerHTML = product.specifications.map((specification) => `<li>${escapeHtml(specification)}</li>`).join('');

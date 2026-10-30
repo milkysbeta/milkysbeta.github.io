@@ -1,4 +1,5 @@
 .shop-page{background:#f4efe6}.shop-page .site-header{background:rgba(248,244,236,.95)}
+[hidden]{display:none!important}
 .catalogue-surface{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(180deg,#f2eee4 0%,#eef1e7 54%,#e4ebdf 100%)}
 .catalogue-surface::before{content:"";position:absolute;z-index:-1;inset:-3% -8%;background:url("assets/wanaka-topographic-contours.svg") center top/1600px auto repeat-y;opacity:.105;filter:sepia(.2) hue-rotate(70deg) saturate(.65)}
 .shop-hero{padding:clamp(38px,5vw,70px) 0 clamp(24px,3vw,38px)}.shop-hero-copy{max-width:970px}.shop-hero-copy h1{max-width:940px;margin:.15em 0 .18em;font-size:clamp(3rem,6.2vw,6rem);line-height:.94}.shop-hero-copy>p:not(.eyebrow){max-width:720px;margin:0;color:var(--ink-soft);font-size:clamp(1.05rem,1.5vw,1.28rem)}
@@ -32,7 +33,22 @@
 .live-product .spec-list li{padding:6px 0;font-size:.8rem}
 .live-product .small-note{margin-top:11px!important;padding-top:9px;font-size:.75rem}
 .catalog-product-media{display:grid;place-items:center;aspect-ratio:16/10;background:#fff}
-.catalog-product-media .card-media{height:100%;aspect-ratio:auto;object-fit:contain;object-position:center;padding:clamp(12px,1.4vw,22px);background:#fff;transition:transform .3s var(--ease)}
+.catalog-product-media .card-media{position:absolute;inset:0;display:block;width:100%;height:100%;box-sizing:border-box;aspect-ratio:auto;object-fit:contain;object-position:50% 50%;padding:clamp(14px,1.55vw,24px);background:#fff;transition:transform .3s var(--ease)}
+.product-card-action .buy-button{min-width:118px;justify-content:center}
+.service-catalogue{grid-column:1/-1;margin-top:24px;padding:clamp(24px,3.4vw,44px);border:1px solid rgba(12,46,38,.16);border-radius:20px;background:linear-gradient(145deg,rgba(218,232,216,.94),rgba(235,238,222,.96));box-shadow:0 18px 46px rgba(14,43,34,.1)}
+.service-catalogue-heading{display:grid;grid-template-columns:minmax(0,.9fr) minmax(320px,.7fr);gap:clamp(24px,5vw,72px);align-items:end;margin-bottom:24px;padding-bottom:22px;border-bottom:1px solid rgba(12,46,38,.16)}
+.service-catalogue-heading h2{max-width:720px;margin:.12em 0 0;font-size:clamp(2.1rem,4vw,3.8rem);line-height:.98}
+.service-catalogue-heading>p{margin:0;color:#3e5b53;font-size:1rem;line-height:1.65}
+.service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.service-grid .catalog-card{background:rgba(255,253,248,.82);border-color:rgba(12,46,38,.18)}
+.service-grid .catalog-card-wide{grid-column:span 2}
+.live-product .catalog-product-media{min-height:250px;padding:12px}
+.live-product .catalog-product-media .card-media{width:100%;height:100%;max-width:100%;max-height:100%;padding:clamp(20px,2.25vw,34px);object-fit:contain;object-position:50% 50%}
+.live-product[data-product-id="shi400-12"] .card-media,.live-product[data-product-id="sti500-24-230"] .card-media,.live-product[data-product-id="sti200-12-230"] .card-media{padding:clamp(26px,2.8vw,42px)}
+.live-product[data-product-id="tbb-combi-provisional"] .card-media,.live-product[data-product-id="cf2060l"] .card-media{padding:clamp(18px,2vw,30px) clamp(32px,4vw,62px)}
+@media(max-width:1100px){.service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.service-grid .catalog-card-wide{grid-column:span 2}}
+@media(max-width:800px){.service-catalogue-heading{grid-template-columns:1fr}.service-grid .catalog-card-wide{display:flex}}
+@media(max-width:600px){.service-catalogue{padding:18px;border-radius:16px}.service-grid{grid-template-columns:1fr}.service-grid .catalog-card-wide{grid-column:auto}}
 .live-product:hover .card-media{transform:scale(1.008)}
 .product-quantity{display:none!important}
 .product-card-action{display:grid;gap:11px;align-items:stretch;padding-top:16px}
@@ -62,6 +78,12 @@
 .purchase-shipping-note{display:grid;gap:3px;align-content:center;margin:0;padding:10px 12px;border-left:4px solid var(--green);background:#e7efe4;color:#29483f;font-size:.8rem;line-height:1.4}
 .purchase-shipping-note strong{color:#123d31}
 .purchase-status{min-height:1.4em;margin:0;color:#a33931;font-weight:750}
+
+/* Keep catalogue bullets in a dedicated gutter at every text size. */
+.spec-list li,.topic-list li{padding-left:19px}
+.spec-list li::before,.topic-list li::before{top:50%;transform:translateY(-50%)}
+.live-product .spec-list li{min-height:32px;padding:6px 0 6px 19px;line-height:1.35}
+.live-product .spec-list li::before{left:1px}
 .solar-service-media svg{display:block;width:100%;height:100%}
 @media(max-width:720px){.purchase-context{grid-template-columns:1fr}.purchase-summary{grid-template-columns:84px 1fr}.purchase-summary img{width:84px;height:70px}}
 @media(max-width:600px){.product-buttons{grid-template-columns:1fr}}
