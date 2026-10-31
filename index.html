@@ -34,7 +34,7 @@
         <nav id="site-navigation" class="site-nav" aria-label="Primary navigation">
           <a class="is-active" href="#home">Home</a>
           <a href="#services">Services</a>
-          <a href="/shop">Shop &amp; reuse</a>
+          <a class="shop-nav-link" href="/shop">Shop &amp; reuse</a>
           <a href="#areas">Areas</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
@@ -42,7 +42,7 @@
         </nav>
 
         <div class="header-actions">
-          <button class="button button-small request-trigger" type="button">Request a service</button>
+          <button class="button button-small request-trigger" type="button">Request Service</button>
         </div>
       </div>
     </header>
@@ -52,8 +52,10 @@
         <div class="hero-photo" role="img" aria-label="A tidy technology repair workspace with a laptop, hand tools and a small 3D printer">
           <img class="hero-photo-base" src="assets/sweetfix-workshop-hero.webp" alt="" fetchpriority="high" decoding="async" />
           <div class="hero-screen" data-hero-screen aria-hidden="true">
-            <img class="hero-screen-media is-active" src="assets/hero-home-preview.webp" alt="" fetchpriority="high" decoding="async" />
-            <img class="hero-screen-media" src="assets/hero-shop-preview.webp" alt="" loading="lazy" decoding="async" />
+            <div class="hero-screen-stage">
+              <img class="hero-screen-media is-active" src="assets/hero-home-preview.webp" alt="" fetchpriority="high" decoding="async" />
+              <img class="hero-screen-media" src="assets/hero-shop-preview.webp" alt="" loading="lazy" decoding="async" />
+            </div>
           </div>
         </div>
         <div class="shell hero-inner">
@@ -64,7 +66,7 @@
             <div class="hero-actions">
               <button class="button request-trigger" type="button">
                 <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 2v2H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3h-2V2h-2v2H9V2H7Zm12 18H5a1 1 0 0 1-1-1v-9h16v9a1 1 0 0 1-1 1ZM6 12h4v3H6v-3Z"/></svg>
-                Request a service
+                Request Service
                 <span aria-hidden="true">→</span>
               </button>
               <button class="button button-secondary request-trigger" type="button" data-service="Not sure yet">
@@ -101,45 +103,32 @@
           </div>
 
           <div class="service-grid">
-            <article class="service-card reveal">
+            <article class="service-card reveal" data-card-href="#repairs" tabindex="0" role="link" aria-label="Explore computer repairs and upgrades">
               <div class="service-media"><img src="assets/service-computer-repair-card-v3.webp" alt="A laptop with a cracked display beside a precision screwdriver" loading="lazy" decoding="async" /></div>
               <h3>Computer repair &amp; upgrades</h3>
               <p>Give your laptop or desktop a longer, faster and more useful life.</p>
               <a href="#repairs">Explore repairs <span aria-hidden="true">→</span></a>
             </article>
-            <article class="service-card reveal">
+            <article class="service-card reveal" data-card-href="#data-recovery" tabindex="0" role="link" aria-label="Explore data recovery and backup options">
               <div class="service-media"><img src="assets/service-data-transfer-card-v3.webp" alt="A silver hard drive transferring data to an M.2 solid-state drive" loading="lazy" decoding="async" /></div>
               <h3>Data recovery &amp; backup</h3>
               <p>Careful help recovering important files, photos and precious memories.</p>
               <a href="#data-recovery">Recovery options <span aria-hidden="true">→</span></a>
             </article>
-            <article class="service-card reveal">
+            <article class="service-card reveal" data-card-action tabindex="0" role="button" aria-label="Request help with Wi-Fi, printers or smart homes">
               <div class="service-media"><img src="assets/service-wifi-router-v3-card.webp" alt="A compact high-performance dark Wi-Fi router with four antennas" loading="lazy" decoding="async" /></div>
               <h3>Wi-Fi, printers &amp; smart homes</h3>
               <p>Reliable connections for the devices around your home, garage or office.</p>
               <button class="service-link request-trigger" type="button" data-service="Wi-Fi, printer or smart home" data-problem="I need help getting my Wi-Fi, printer or smart home technology working properly.">Get connected <span aria-hidden="true">→</span></button>
             </article>
-            <article class="service-card reveal">
+            <article class="service-card reveal" data-card-action tabindex="0" role="button" aria-label="Discuss a 3D printing or custom technology project">
               <div class="service-media"><img src="assets/service-3d-printing-card-v2.webp" alt="An enclosed desktop 3D printer producing a practical cable organiser" loading="lazy" decoding="async" /></div>
               <h3>3D printing &amp; custom technology</h3>
               <p>Useful parts, prototypes, sensors and practical ideas made real.</p>
               <button class="service-link request-trigger" type="button" data-service="3D printing" data-problem="I’d like to discuss a 3D printing or custom technology project.">Discuss an idea <span aria-hidden="true">→</span></button>
             </article>
-            <article class="service-card reveal">
-              <div class="service-media solar-service-media" aria-hidden="true">
-                <svg viewBox="0 0 480 300" role="img">
-                  <defs><linearGradient id="solar-sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7e9d7"/><stop offset="1" stop-color="#f2e6c8"/></linearGradient></defs>
-                  <rect width="480" height="300" fill="url(#solar-sky)"/>
-                  <circle cx="390" cy="62" r="28" fill="#e5a735"/>
-                  <path d="M0 221 110 112l82 84 68-71 74 80 54-58 92 87v66H0Z" fill="#a8c5ac"/>
-                  <path d="M76 195h228l-30 88H44Z" fill="#123f3a" stroke="#f5f1e7" stroke-width="8"/>
-                  <path d="m93 196-12 87m67-87-12 87m67-87-12 87m67-87-12 87M62 225h231m-239 28h230" fill="none" stroke="#79ad9b" stroke-width="5"/>
-                  <rect x="329" y="176" width="93" height="106" rx="10" fill="#f8f6ef" stroke="#153d35" stroke-width="7"/>
-                  <rect x="347" y="197" width="57" height="33" rx="4" fill="#193a37"/>
-                  <circle cx="376" cy="254" r="12" fill="#77a879"/>
-                  <path d="M304 246c28 0 31-23 31-38" fill="none" stroke="#172c29" stroke-width="7" stroke-linecap="round"/>
-                </svg>
-              </div>
+            <article id="solar-support" class="service-card reveal" data-card-action tabindex="0" role="button" aria-label="Ask about solar power support">
+              <div class="service-media"><img src="assets/service-solar-support-card.webp" alt="A technician installing solar panels, an inverter and battery monitoring equipment at a Southern Lakes home" loading="lazy" decoding="async" /></div>
               <h3>Solar power support</h3>
               <p>Help with low-voltage solar controllers, battery monitoring, inverter setup, connected apps and fault diagnosis. Mains electrical work is referred to a licensed electrician.</p>
               <button class="service-link request-trigger" type="button" data-service="Custom technology project" data-problem="I need help with a low-voltage solar controller, battery monitor, inverter or solar monitoring setup.">Ask about solar support <span aria-hidden="true">→</span></button>
@@ -244,7 +233,7 @@
             <p>That’s completely fine. Describe the problem in your own words and include a photo if it helps. I’ll review it and suggest the next sensible step.</p>
           </div>
           <div class="contact-actions">
-            <button class="button button-light request-trigger" type="button">Request a service <span aria-hidden="true">→</span></button>
+            <button class="button button-light request-trigger" type="button">Request Service <span aria-hidden="true">→</span></button>
           </div>
         </div>
       </section>
@@ -257,7 +246,7 @@
           <p>Friendly technology help in the Southern Lakes.</p>
         </div>
         <div><strong>Services</strong><a href="#services">Everyday tech help</a><a href="#data-recovery">Data recovery</a><a href="#repairs">Repairs &amp; upgrades</a><a href="/shop">Shop &amp; reuse</a></div>
-        <div><strong>Visit</strong><a href="#about">About Matt</a><a href="#areas">Areas covered</a><button class="footer-button request-trigger" type="button">Request a service</button></div>
+        <div><strong>Visit</strong><a href="#about">About Matt</a><a href="#areas">Areas covered</a><button class="footer-button request-trigger" type="button">Request Service</button></div>
       </div>
       <div class="shell footer-bottom"><span>© <span data-year></span> SWEETFIX</span><span><a href="/privacy">Privacy</a> · Wānaka • Hāwea • Southern Lakes</span></div>
     </footer>

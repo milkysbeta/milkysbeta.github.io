@@ -183,6 +183,26 @@ const closeDialog = () => {
 };
 
 document.querySelectorAll('.request-trigger').forEach((button) => button.addEventListener('click', openDialog));
+const activateServiceCard = (card) => {
+  const destination = card.dataset.cardHref;
+  if (destination) {
+    window.location.hash = destination;
+    document.querySelector(destination)?.focus({ preventScroll: true });
+    return;
+  }
+  card.querySelector('.request-trigger')?.click();
+};
+document.querySelectorAll('.service-card[data-card-href], .service-card[data-card-action]').forEach((card) => {
+  card.addEventListener('click', (event) => {
+    if (event.target.closest('a, button')) return;
+    activateServiceCard(card);
+  });
+  card.addEventListener('keydown', (event) => {
+    if (event.target !== card || !['Enter', ' '].includes(event.key)) return;
+    event.preventDefault();
+    activateServiceCard(card);
+  });
+});
 document.querySelector('.dialog-close')?.addEventListener('click', closeDialog);
 dialog?.addEventListener('click', (event) => {
   if (event.target === dialog) closeDialog();
