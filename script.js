@@ -68,8 +68,27 @@ document.addEventListener('keydown', (event) => {
 const systemReducesMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (systemReducesMotion) doc.classList.add('reduce-motion');
 
-// Screen corners measured against the optimized 1400 × 876 hero WebP.
-const heroScreenSource = { x: 557.35, y: 297.56, width: 388.64, height: 275.61 };
+// Inner display corners measured against the optimized 1400 × 876 hero WebP.
+// Deriving the box and mask from the same four points keeps the replacement
+// website in the laptop's true proportions at every responsive crop.
+const heroScreenCorners = {
+  topLeft: { x: 560, y: 309 },
+  topRight: { x: 922, y: 303 },
+  bottomRight: { x: 942, y: 556 },
+  bottomLeft: { x: 571, y: 569 },
+};
+const heroScreenPoints = Object.values(heroScreenCorners);
+const heroScreenSource = {
+  x: Math.min(...heroScreenPoints.map(({ x }) => x)),
+  y: Math.min(...heroScreenPoints.map(({ y }) => y)),
+  width: Math.max(...heroScreenPoints.map(({ x }) => x)) - Math.min(...heroScreenPoints.map(({ x }) => x)),
+  height: Math.max(...heroScreenPoints.map(({ y }) => y)) - Math.min(...heroScreenPoints.map(({ y }) => y)),
+};
+const heroScreenPolygon = heroScreenPoints.map(({ x, y }) => {
+  const px = ((x - heroScreenSource.x) / heroScreenSource.width) * 100;
+  const py = ((y - heroScreenSource.y) / heroScreenSource.height) * 100;
+  return `${px.toFixed(2)}% ${py.toFixed(2)}%`;
+}).join(', ');
 const positionFraction = (value, fallback = .5) => value?.endsWith('%') ? Number.parseFloat(value) / 100 : fallback;
 const placeHeroScreen = () => {
   if (!heroPhoto || !heroPhotoBase || !heroScreen || !heroPhotoBase.naturalWidth) return;
@@ -85,6 +104,7 @@ const placeHeroScreen = () => {
   heroScreen.style.top = `${offsetY + heroScreenSource.y * scale}px`;
   heroScreen.style.width = `${heroScreenSource.width * scale}px`;
   heroScreen.style.height = `${heroScreenSource.height * scale}px`;
+  heroScreen.style.clipPath = `polygon(${heroScreenPolygon})`;
 };
 
 if (heroPhotoBase?.complete) placeHeroScreen();
