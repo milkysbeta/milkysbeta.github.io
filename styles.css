@@ -71,6 +71,8 @@ button { color: inherit; }
     drop-shadow(0 0 3px rgba(255,253,248,.98))
     drop-shadow(0 0 5px rgba(255,253,248,.78));
 }
+.site-header .brand { gap: 14px; font-size: clamp(1.62rem, 2vw, 2.08rem); letter-spacing: .13em; }
+.site-header .brand-mark { width: 70px; height: 63px; }
 .site-nav { display: flex; align-items: center; gap: clamp(20px, 2.3vw, 38px); margin-left: auto; }
 .site-nav a { position: relative; padding: 9px 0 8px; font-weight: 650; font-size: .89rem; }
 .site-nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: 9px; height: 2px; background: var(--green); transition: right .25s var(--ease); }
@@ -305,6 +307,8 @@ h2 { margin: 0; font-size: clamp(2.2rem, 4vw, 4.35rem); letter-spacing: -.055em;
   .header-inner { gap: 12px; }
   .brand { font-size: 1.38rem; }
   .brand-mark { width: 60px; height: 56px; }
+  .site-header .brand { gap: 12px; font-size: 1.46rem; letter-spacing: .125em; }
+  .site-header .brand-mark { width: 56px; height: 52px; }
   .menu-toggle { display: block; order: 3; margin-left: 4px; }
   .menu-toggle[aria-expanded="true"] span:nth-child(2) { transform: translateY(7px) rotate(45deg); }
   .menu-toggle[aria-expanded="true"] span:nth-child(3) { opacity: 0; }
@@ -336,6 +340,8 @@ h2 { margin: 0; font-size: clamp(2.2rem, 4vw, 4.35rem); letter-spacing: -.055em;
   body { font-size: 16px; }
   .brand { gap: 7px; font-size: 1.24rem; letter-spacing: .1em; }
   .brand-mark { width: 56px; height: 52px; }
+  .site-header .brand { gap: 10px; font-size: 1.32rem; letter-spacing: .12em; }
+  .site-header .brand-mark { width: 52px; height: 48px; }
   .menu-toggle { margin-left: auto; }
   .hero-copy { padding-top: 45px; }
   .hero-photo { height: 310px; }
